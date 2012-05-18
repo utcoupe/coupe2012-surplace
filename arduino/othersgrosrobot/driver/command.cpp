@@ -29,7 +29,7 @@ void cmd(int id, int header, int *args, int size){
         else
           {
             sendMessage(id, 1);
-            tourner(id, args[0], args[1])
+            tourner(id, args[0], args[1]);
           }
         break;
       }
