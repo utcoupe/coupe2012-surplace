@@ -36,7 +36,7 @@ class ActionTotem(Action):
 		
 	def __repr__(self):
 		return "ActionTotem(%s, %s)" % (self.point_acces, self.score)
-
+"""
 class ActionTotem2(Action):
 	def __init__(self, ia, robot, enemies, point_acces):
 		Action.__init__(self, ia, robot, enemies, point_acces)
@@ -75,8 +75,10 @@ class ActionTotem2(Action):
 		time.sleep(0.5)
 		if (self.direction == ActionTotem.DIRECTION_HAUT):
 			point = (1400, 1000-125-R_BIGROBOT+40)
+			point2 = (400, 900)
 		else:
 			point = (1400, 1000+125+R_BIGROBOT-40)
+			point2 = (400, 830)
 		self.robot.asserv.goto(self.ia.p(point), block=True, block_level=2)
 		self.robot.asserv.turn(self.ia.a(180), block=True, block_level=2)
 		time.sleep(0.5)
@@ -84,18 +86,23 @@ class ActionTotem2(Action):
 		self.robot.actionneurs.tourner(2, -50)#, block=True, block_level=2)
 		time.sleep(1)
 		
-		self.robot.asserv.gotor((400,0), block=True, block_level=2) # permet de vider le totem 
-		self.robot.asserv.goto(self.ia.p([300,900]), block=True, block_level=2)
+		self.robot.asserv.gotor((300,0), block=True, block_level=2) # permet de vider le totem 
+		self.robot.asserv.goto(self.ia.p(point2), block=True, block_level=2)
+		self.robot.asserv.turn(self.ia.a(180), block=True, block_level=2)
+		self.robot.asserv.pwm(100, 100, 700, block=True, block_level=2)
 
+		self.robot.asserv.pwm(-100,-100, 800, block=True, block_level=2)
 		self.robot.actionneurs.ouvrir_peignes() # On protège les peignes
-		self.robot.asserv.pwm(-100,-100,1000, block=True, block_level=2)
 		
+		#self.robot.actionneurs.tourner(0, -70)
+		#self.robot.actionneurs.tourner(1, 70)
 		self.clean()
 
 	def compute_score(self, p):
-		super().compute_score()
-		if len(self.robot.actions) > 3:
-			self.score -= 10000
+		super().compute_score(p)
+		#if len(self.robot.actions) > 3:
+		#	self.score += 10000
+		self.score = -MAX_DIST
 
 class ActionTotem3(Action):
 	def __init__(self, ia, robot, enemies, point_acces, direction):
@@ -130,7 +137,11 @@ class ActionTotem3(Action):
 		self.robot.asserv.pwm(-100,-100,1000, block=True, block_level=2)
 		
 		self.clean()
-"""
+
+	def comptute_score(self, p):
+		super().compute_score(p)
+		if len(self.robot.actions) > 5:
+			self.score -= 10000
 
 class ActionFinalize(Action):
 	"""
@@ -147,7 +158,7 @@ class ActionFinalize(Action):
 
 		self.robot.asserv.pwm(100, 100, 500, block=True, block_level=2)
 
-		self.robot.asserv.pwm(-100, -100, 500, block=True, block_level=2)
+		self.robot.asserv.pwm(-30, -30, 2000, block=True, block_level=2)
 		time.sleep(80)
 		self.clean()
 
@@ -174,7 +185,7 @@ class ActionBouteille(Action):
 		time.sleep(0.5)
 		self.robot.asserv.pwm(-100,-100,1500, block=True, block_level=2)
 		self.robot.asserv.pwm(100,100,1000, block=True, block_level=2)
-		self.robot.asserv.goto(self.point_acces)
+		#self.robot.asserv.goto(self.point_acces)
 
 		self.clean()
 
@@ -259,24 +270,24 @@ def get_actions_bigrobot(ia, robot, enemies):
 	actions.append(ActionTotem(robot, enemies, (1100,875-R_BIGROBOT-1), ActionTotem.DIRECTION_HAUT))
 	actions.append(ActionTotem(robot, enemies, (1900,875-R_BIGROBOT-1), ActionTotem.DIRECTION_HAUT))
 	"""
-	
+	"""
 	actions.append(ActionBouteille(ia, robot, enemies, ia.p((640, 2000 - R_BIGROBOT - 100))))
 	actions.append(ActionBouteille(ia, robot, enemies, (ia.x(1883), 2000 - R_BIGROBOT - 100)))
 	actions.append(ActionLingo(ia, robot, enemies, ia.p((400, 900))))
 	#actions.append(ActionTotem2(ia, robot, enemies, ia.p((1400,600))))
 	actions.append(ActionFinalize(ia, robot, enemies, ia.p((400, 950))))
-	
-	# Supers actions de floflo
 	"""
+	# Supers actions de floflo
+
 	actions.append(ActionBouteille(ia, robot, enemies, ia.p((640, 2000 - R_BIGROBOT - 100))))
 	actions.append(ActionBouteille(ia, robot, enemies, (ia.x(1883), 2000 - R_BIGROBOT - 100)))
-	actions.append(ActionLingo(ia, robot, enemies, ia.p((400, 900))))
+	#actions.append(ActionLingo(ia, robot, enemies, ia.p((400, 900))))
 	actions.append(ActionTotem2(ia, robot, enemies, ia.p((1400,1000-125-R_BIGROBOT-40)), ActionTotem.DIRECTION_HAUT))
-	actions.append(ActionTotem2(ia, robot, enemies, ia.p((1400,1000+125+R_BIGROBOT+40)), ActionTotem.DIRECTION_BAS))
-	actions.append(ActionFinalize(ia, robot, enemies, ia.p(ia.p((400, 950)))))
-	actions.append(ActionTotem3(ia, robot, enemies, ia.p((2200,1000-125-R_BIGROBOT-60)), ActionTotem.DIRECTION_HAUT))
-	actions.append(ActionTotem3(ia, robot, enemies, ia.p((2200,1000+125+R_BIGROBOT+60)), ActionTotem.DIRECTION_BAS))
-	"""
+	#actions.append(ActionTotem2(ia, robot, enemies, ia.p((1400,1000+125+R_BIGROBOT+40)), ActionTotem.DIRECTION_BAS))
+	actions.append(ActionFinalize(ia, robot, enemies, ia.p((400, 950))))
+	#actions.append(ActionTotem3(ia, robot, enemies, ia.p((2200,1000-125-R_BIGROBOT-60)), ActionTotem.DIRECTION_HAUT))
+	#actions.append(ActionTotem3(ia, robot, enemies, ia.p((2200,1000+125+R_BIGROBOT+60)), ActionTotem.DIRECTION_BAS))
+
 	return actions
 
 
