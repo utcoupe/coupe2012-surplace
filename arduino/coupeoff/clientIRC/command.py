@@ -32,9 +32,9 @@ def keypress(event):
 	if x=='z':
 		bot.send(".pwm 100 100")
 	elif x=='q':
-		bot.send(".pwm -100 100")
+		bot.send(".pwm 0 100")
 	elif x=='d':
-		bot.send(".pwm 100 -100")
+		bot.send(".pwm 100 0")
 	elif x=='s':
 		bot.send(".pwm 0 0")
 	else:

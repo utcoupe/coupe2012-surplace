@@ -1,6 +1,7 @@
 #include "command.h"
 #include "led.h"
 #include "pwm.h"
+#include "include_arduino.h"
 
 /* Analyse le message et effectue les actions associees
  * 	<> id : l'identifiant associe au message
@@ -26,9 +27,14 @@ void cmd(int id, int header, int *args, int size){
 		}
 		case Q_PWM:
 		{
-			setLeftPWM(args[0]);
-			setRightPWM(args[1]);
-			sendMessage(id, 0);
+			if(args[0])
+				digitalWrite(42, HIGH);
+			else
+				digitalWrite(42, LOW);
+			if(args[1])
+				digitalWrite(43, HIGH);
+			else
+				digitalWrite(43, LOW);
 			break;
 		}
 		case Q_ALLUME:
