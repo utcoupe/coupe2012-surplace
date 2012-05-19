@@ -85,7 +85,8 @@ class ActionTotemHaut(Action):
 
 		self.robot.asserv.turn(-90, block=True, block_level=2)
 		time.sleep(0.5)
-		self.robot.asserv.goto(self.ia.p((1450, 1000+125+R_BIGROBOT-30)), block=True, block_level=2)
+		self.robot.asserv.goto(self.ia.p((1450, 1000+125+R_BIGROBOT-30)))
+		time.sleep(3)
 		#self.robot.asserv.gotor((50,0), block=True,block_level=2) 
 		self.robot.asserv.turn(self.ia.a(180), block=True, block_level=2)
 		time.sleep(0.5)
@@ -192,7 +193,7 @@ def get_actions_bigrobot(ia, robot, enemies):
 	actions = []
 
 	actions.append(ActionBouteille(ia, robot, enemies, ia.p((640, 2000 - R_BIGROBOT - 100))))
-	actions.append(ActionBouteille(ia, robot, enemies, (ia.x(1883), 2000 - R_BIGROBOT - 100)))
+	actions.append(ActionBouteille(ia, robot, enemies, (ia.x(1900), 2000 - R_BIGROBOT - 100)))
 	#actions.append(ActionLingo(ia, robot, enemies, ia.p((400, 900))))
 	actions.append(ActionTotemBas(ia, robot, enemies, ia.p((1450,1000-125-R_BIGROBOT-40))))
 	actions.append(ActionTotemHaut(ia, robot, enemies, ia.p((1450,1000+125+R_BIGROBOT+40))))
