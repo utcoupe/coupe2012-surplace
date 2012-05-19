@@ -29,8 +29,10 @@
 #define Q_ETEINDRE		43
 
 /** PWM
- * @param left 
- * @param right
+ * @param haut
+ * @param gauche
+ * @param droite
+ * @param bas
  */
 #define Q_PWM   44
 

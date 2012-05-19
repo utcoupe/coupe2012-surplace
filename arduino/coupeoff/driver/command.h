@@ -1,6 +1,7 @@
 #ifndef COMMAND_H_
 #define COMMAND_H_
 
+extern int consigneGauche, consigneDroite;
 
 #include "message.h"
 
