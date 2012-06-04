@@ -290,7 +290,7 @@ positionControl(int* value_pwm_left, int* value_pwm_right){
 	 */
 	int sens = 1;
 	bool onlyTurn = false; // il ne faut que tourner
-	if (current_goal.phase == PHASE_1 and abs(currentAlpha) > M_PI/4.0) {
+	if (current_goal.phase == PHASE_1 and abs(currentAlpha) > M_PI/12.0) {
 		pid4AlphaControl.SetOutputLimits(-100,100); // composante liee a la vitesse de rotation
 		onlyTurn = true;
 	}
@@ -357,7 +357,7 @@ positionControl(int* value_pwm_left, int* value_pwm_right){
 		break;
 
 		case PHASE_ARRET:
-			if (abs(currentDelta) > 5*ENC_MM_TO_TICKS)
+			if (abs(currentDelta) > 10*ENC_MM_TO_TICKS)
 			{
 				current_goal.phase = PHASE_CORRECTION;
 			}
@@ -366,7 +366,7 @@ positionControl(int* value_pwm_left, int* value_pwm_right){
 		case PHASE_CORRECTION:
 			pid4DeltaControl.SetOutputLimits(-min(50,current_goal.speed),min(50,current_goal.speed)); // composante liee a la vitesse lineaire
 			pid4AlphaControl.SetOutputLimits(-150,150); // composante liee a la vitesse de rotation
-			if (abs(currentDelta) < 5*ENC_MM_TO_TICKS)
+			if (abs(currentDelta) < 10*ENC_MM_TO_TICKS)
 			{
 				current_goal.phase = PHASE_ARRET;
 			}

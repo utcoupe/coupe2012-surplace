@@ -21,7 +21,7 @@ default["ia"]				= 'u'
 default["player_team"]		= 'blue'
 default["color_team"]		= 'blue'
 default["autostart"]		= 0
-default["timeout"]			= 80
+default["timeout"]			= 87 
 default["skip"]				= 0
 
 usage = "usage: %prog [options]"
